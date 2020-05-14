@@ -1,5 +1,7 @@
 const Discord = require('discord.js');
 const bot = new Discord.Client();
+const fs = require('fs');
+//const profanities = require('profanities');
 
 // Login with Token
 const token = 'NzA5OTY5OTI5NjMzMjY3Nzky.XrtpEA.HYZQi-Emb1m28JdgyPA8NNvVq3M';
@@ -8,12 +10,16 @@ const PREFIX = '!';
 var purple = 'Den type: Rare';
 var red = 'Den type: Common';
 
+//var userData = JSON.parse(fs.readFileSync('Storage/userData.json', 'utf8'));
+//var commandsList = JSON.parse(fs.readFileSync('./helpers/commands.txt', 'utf8'));
+
 bot.on('ready', () => {
 	console.log('Bot is online.');
 })
 bot.on('message', message=>{
 	// 'let' declares variables locally, 'var' decalres globally
 	// Here we are splitting string by white space
+	message = message.content.toLowerCase();
 	let args = message.content.substring(PREFIX.length).split(" ");
 
 	switch(args[0]){
@@ -23,12 +29,18 @@ bot.on('message', message=>{
 		case 'website':
 			message.channel.send('https://www.youtube.com/channel/UCBkKEr-U-VWYbw27oZcIO_A/featured')
 			break;
+			// Use: !clear + #, # determines how many messages to delete
+			// Note specifying a number simply deletes the most recent message
 		case 'clear':
 			if (args[1]) message.channel.bulkDelete(args[1])
 			else message.channel.bulkDelete(2)
 			break;
 		case 'crab':
 			message.reply('I will mute you');
+			break;
+		case 'help':
+			message.channel.send("```BigBrainsBot supports the following commands: \n\n- !ping \n- !website \n- !clear # \n- !serebii den # \n- !serebii convert # ```")
+			//message.channel.send(commandsList)
 			break;
 		case 'serebii':
 			// Return den info on Serebii
@@ -52,7 +64,7 @@ bot.on('message', message=>{
 			else {
 				message.channel.send('Command not recognized. Perhaps you mean to try `!serebii convert #` or `!serebii den #` ?')
 			}
-			break;	
+			break;
 	}
 
 	// Helpers
@@ -103,7 +115,7 @@ bot.on('message', message=>{
 		case '15':
 			message.channel.send('★ __Den 34__: Giant\'s Seat 1 \n★ __Den 37__: Giant\'s Seat 4 \n★ __Den 73__: Dusty Bowl 3')
 			break;
-		case '16': 
+		case '16':
 			message.channel.send('★ __Den 15__: Watchtower Ruins 1 \n★ __Den 65__: Stony Wilderness 7')
 			break;
 		case '17':
@@ -143,12 +155,12 @@ bot.on('message', message=>{
 			message.channel.send('★ __Den 11__: Dappled Grove 2 \n★ __Den 79__: Giant\'s Mirror 1')
 			break;
 		case '29':
-			message.channel.send('★ __Den 41_: North Lake Miloc 3 \n★ __Den 43__: North Lake Miloc 5 \n★ __Den 44__: East Lake Axewell 5')
+			message.channel.send('★ __Den 41__: North Lake Miloc 3 \n★ __Den 43__: North Lake Miloc 5 \n★ __Den 44__: East Lake Axewell 5')
 			break;
 		case '30':
 			message.channel.send('★ __Den 47__: Motostoke Riverbank 2 \n★ __Den 87__: Hammerlocke Hills 3 \n★ __Den 92__: Giant\'s Cap 1')
 			break;
-		
+
 		case '52':
 			message.channel.send('★ __Den 1__: Rolling Fields 1 \n ★ __Den 53__: Bridge Field 4')
 			break;
@@ -158,5 +170,3 @@ bot.on('message', message=>{
 })
 
 bot.login(token);
-
-

@@ -1,0 +1,8 @@
+"```
+BigBrainsBot supports the following commands:
+
+clear         Clears a set number of messages       !clear [number]
+dens          Links to Serebii's den page           !serebii den [number]
+convert       Converts Serebii den numbers to       !serebii convert [number]
+              PkHex's den numbers
+```"
