@@ -19,7 +19,6 @@ bot.on('ready', () => {
 bot.on('message', message=>{
 	// 'let' declares variables locally, 'var' decalres globally
 	// Here we are splitting string by white space
-	message = message.content.toLowerCase();
 	let args = message.content.substring(PREFIX.length).split(" ");
 
 	switch(args[0]){
@@ -41,6 +40,32 @@ bot.on('message', message=>{
 		case 'help':
 			message.channel.send("```BigBrainsBot supports the following commands: \n\n- !ping \n- !website \n- !clear # \n- !serebii den # \n- !serebii convert # ```")
 			//message.channel.send(commandsList)
+			break;
+		case 'user':
+			if (args[1]){
+				let member = (message.mentions.users.first()) //|| message.guild.members.fetch(args[1]))
+				if (!member) return message.reply("Member could not be found.")
+
+				const user = new Discord.MessageEmbed()
+				.setTitle('User Information')
+				.setThumbnail(member.displayAvatarURL())
+				.addField('Player Name', member.username)
+				//.setImage(message.author.displayAvatarURL())
+				.addField('Tag', member.tag)
+				.setColor(0x48C9B0);
+				message.channel.send(user);
+
+			} else {
+				const user = new Discord.MessageEmbed() // Create embed
+				.setTitle('User Information')
+				.setThumbnail(message.author.displayAvatarURL())
+				.addField('Player Name', message.author.username)
+				//.setImage(message.author.displayAvatarURL())
+				.addField('Tag', message.author.tag)
+				.setColor(0x48C9B0);
+				message.channel.send(user);
+		}
+
 			break;
 		case 'serebii':
 			// Return den info on Serebii
