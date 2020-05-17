@@ -1,20 +1,11 @@
 const Discord = require('discord.js');
 const bot = new Discord.Client();
 const fs = require('fs');
-
 const xlsxFile = require('read-excel-file/node');
- 
-//const profanities = require('profanities');
 
 // Login with Token
-const token = 'NzA5OTY5OTI5NjMzMjY3Nzky.XsDFQg.DTc9zi5v3xyLLF6ltnq3ZVbISHY';
-
+const token = fs.readFileSync('C:/Users/prisc/Documents/token.txt').toString();
 const PREFIX = '!';
-var purple = 'Den type: Rare';
-var red = 'Den type: Common';
-
-//var userData = JSON.parse(fs.readFileSync('Storage/userData.json', 'utf8'));
-//var commandsList = JSON.parse(fs.readFileSync('./helpers/commands.txt', 'utf8'));
 
 bot.on('ready', () => {
 	console.log('Bot is online.');
@@ -42,18 +33,16 @@ bot.on('message', message=>{
 			break;
 		case 'help':
 			message.channel.send("```BigBrainsBot supports the following commands: \n\n- !ping \n- !website \n- !clear # \n- !serebii den # \n- !serebii convert # ```")
-			//message.channel.send(commandsList)
 			break;
 		case 'user':
 			if (args[1]){
-				let member = (message.mentions.users.first()) //|| message.guild.members.fetch(args[1]))
+				let member = (message.mentions.users.first())
 				if (!member) return message.reply("Member could not be found.")
 
 				const user = new Discord.MessageEmbed()
 				.setTitle('User Information')
 				.setThumbnail(member.displayAvatarURL())
 				.addField('Player Name', member.username)
-				//.setImage(message.author.displayAvatarURL())
 				.addField('Tag', member.tag)
 				.setColor(0x48C9B0);
 				message.channel.send(user);
@@ -63,7 +52,6 @@ bot.on('message', message=>{
 				.setTitle('User Information')
 				.setThumbnail(message.author.displayAvatarURL())
 				.addField('Player Name', message.author.username)
-				//.setImage(message.author.displayAvatarURL())
 				.addField('Tag', message.author.tag)
 				.setColor(0x48C9B0);
 				message.channel.send(user);
