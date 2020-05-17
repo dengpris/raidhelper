@@ -104,7 +104,7 @@ bot.on('message', message=>{
   					message.channel.send('```Den ' + num + ' is: ' + rows[i][0] + ' - ' + rows[i][1] + '```')
   				}
   			}
-  			if (num < 43) message.channel.send ('```Den type: Common' + '\nNotable Pokemon: ' + rows[x][4] + '```')
+  			if (num < 43) message.channel.send ('```Den type: Common```')
   			else message.channel.send ('```Den type: Rare' + '\nNotable Pokemon: ' + rows[x][4] + '```')
 		})
 	}
