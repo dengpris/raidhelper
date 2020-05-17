@@ -7,7 +7,7 @@ const xlsxFile = require('read-excel-file/node');
 //const profanities = require('profanities');
 
 // Login with Token
-const token = 'NzA5OTY5OTI5NjMzMjY3Nzky.XrtpEA.HYZQi-Emb1m28JdgyPA8NNvVq3M';
+const token = 'NzA5OTY5OTI5NjMzMjY3Nzky.XsDFQg.DTc9zi5v3xyLLF6ltnq3ZVbISHY';
 
 const PREFIX = '!';
 var purple = 'Den type: Rare';
