@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const bot = new Discord.Client();
 const fs = require('fs');
+const ms = require('ms');
 const xlsxFile = require('read-excel-file/node');
 
 // Login with Token
@@ -29,15 +30,50 @@ bot.on('message', message=>{
 			else message.channel.bulkDelete(2)
 			break;
 		case 'crab':
-			message.reply('I will mute you');
+			message.reply('I will mute you')
+			let author = message.member
+			let mainrole = message.guild.roles.cache.find(role => role.name === "new role");
+			let muterole = message.guild.roles.cache.find(role => role.name === "mute");
+			if (!muterole) return message.reply("Mute role not found");
+			let time = '5s';
+			
+			author.roles.remove(mainrole.id);
+			author.roles.add(muterole.id);
+
+			setTimeout(function(){
+				author.roles.add(mainrole.id);
+				author.roles.remove(muterole.id);
+				message.channel.send(`${author} has been unmuted!`)
+			}, ms(time));
+			break;
+		case 'mute':
+			let person = message.guild.member(message.mentions.members.first() || message.guild.members.cache.get(args[0]))
+			if (!person) return message.reply("User not found");
+
+			mainrole = message.guild.roles.cache.find(role => role.name === "new role");
+			muterole = message.guild.roles.cache.find(role => role.name === "mute");
+			if (!muterole) return message.reply("Mute role not found");
+
+			time = args[2];
+			if (!time) return message.reply("You didn't specify a time!");
+
+			person.roles.remove(mainrole.id);
+			person.roles.add(muterole);
+			message.channel.send(`${person} has been muted for ${ms(ms(time))}`);
+
+			setTimeout(function(){
+				person.roles.add(mainrole.id);
+				person.roles.remove(muterole.id);
+				message.channel.send(`${person} has been unmuted!`)
+			}, ms(time));
 			break;
 		case 'help':
 			message.channel.send("```BigBrainsBot supports the following commands: \n\n- !ping \n- !website \n- !clear # \n- !serebii den # \n- !serebii convert # ```")
 			break;
 		case 'user':
 			if (args[1]){
-				let member = (message.mentions.users.first())
-				if (!member) return message.reply("Member could not be found.")
+				let member = message.mentions.users.first()
+				if (!member) return message.reply("member could not be found.");
 
 				const user = new Discord.MessageEmbed()
 				.setTitle('User Information')
