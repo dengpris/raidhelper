@@ -5,6 +5,7 @@ Highlights include:
 - Embed use & support
 - Parsing and reading from Excel
 - Parsing and reading from txt files
+- Temporary permissions
 
 Future plans:
 - More organization and guide for bot use
