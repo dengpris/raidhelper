@@ -15,6 +15,9 @@ bot.on('message', message=>{
 	// 'let' declares variables locally, 'var' decalres globally
 	// Here we are splitting string by white space
 	let args = message.content.substring(PREFIX.length).split(" ");
+	let mainrole = message.guild.roles.cache.find(role => role.name === "new role");
+	let muterole = message.guild.roles.cache.find(role => role.name === "mute");
+	let time;
 
 	switch(args[0]){
 		case 'ping':
@@ -32,10 +35,8 @@ bot.on('message', message=>{
 		case 'crab':
 			message.reply('I will mute you')
 			let author = message.member
-			let mainrole = message.guild.roles.cache.find(role => role.name === "new role");
-			let muterole = message.guild.roles.cache.find(role => role.name === "mute");
 			if (!muterole) return message.reply("Mute role not found");
-			let time = '5s';
+			time = '5s';
 			
 			author.roles.remove(mainrole.id);
 			author.roles.add(muterole.id);
@@ -49,13 +50,10 @@ bot.on('message', message=>{
 		case 'mute':
 			let person = message.guild.member(message.mentions.members.first() || message.guild.members.cache.get(args[0]))
 			if (!person) return message.reply("User not found");
-
-			mainrole = message.guild.roles.cache.find(role => role.name === "new role");
-			muterole = message.guild.roles.cache.find(role => role.name === "mute");
 			if (!muterole) return message.reply("Mute role not found");
 
 			time = args[2];
-			if (!time) return message.reply("You didn't specify a time!");
+			if (!time) return message.reply("you didn't specify a time!");
 
 			person.roles.remove(mainrole.id);
 			person.roles.add(muterole);
