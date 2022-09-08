@@ -19,6 +19,6 @@
   "dependencies": {
     "discord.js": "^12.2.0",
     "ms": "^2.1.2",
-    "read-excel-file": "^4.0.6"
+    "read-excel-file": "^4.1.0"
   }
 }
